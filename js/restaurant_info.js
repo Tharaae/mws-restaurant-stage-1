@@ -87,8 +87,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.className = 'restaurant-img';
+  //get 800px wide image url
+  const imageUrl = DBHelper.imageUrlForRestaurant(restaurant);
+  //get 600px wide image url
+  const smImage = getSmallerImageUrl('sm', imageUrl);
+  //get 450px wide image url
+  const xsImage = getSmallerImageUrl('xs', imageUrl);
+  image.src = smImage;
+  image.srcset = xsImage + ' 450w, ' + smImage + ' 600w, ' + imageUrl + ' 800w';
+  image.alt = restaurant.name;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -99,6 +107,17 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
+}
+
+/**
+ * Get the smaller images filename according to size naming convension
+ * (add '-sm' or '-xs' to the filename)
+ */
+getSmallerImageUrl = (size, imageUrl) => {
+  // get file extension including the dot (ex: .jpg)
+  const extension = imageUrl.substring(imageUrl.lastIndexOf("."));
+  // add '-sm' to filename before extension
+  return imageUrl.replace(extension, '-' + size + extension);
 }
 
 /**
@@ -172,12 +191,16 @@ createReviewHTML = (review) => {
 }
 
 /**
- * Add restaurant name to the breadcrumb navigation menu
+ * Add restaurant name link to the breadcrumb navigation menu
  */
 fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
-  li.innerHTML = restaurant.name;
+  const link = document.createElement('a');
+  link.href = '#restaurant-container';
+  link.innerHTML = restaurant.name;
+  link.setAttribute('aria-label', restaurant.name + ' restaurant details');
+  li.appendChild(link);
   breadcrumb.appendChild(li);
 }
 

@@ -160,7 +160,17 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  const imageUrl = DBHelper.imageUrlForRestaurant(restaurant);
+  //get 450px wide image url
+  const xsImage = getSmallerImageUrl('xs', imageUrl);
+  //get 600px wide image url
+  const smImage = getSmallerImageUrl('sm', imageUrl);
+  //set default src to 450px as it's most likely a small grid item image
+  image.src = xsImage;
+  //set srcset options for different resolution
+  //(no larger than 600px expected)
+  image.srcset = xsImage + ' 320w, ' + smImage + ' 600w';
+  image.alt = restaurant.name;
   li.append(image);
 
   const info = document.createElement('div')
@@ -182,10 +192,23 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.setAttribute('aria-label', 'view ' + restaurant.name + ' restaurant details and reviews');
   li.append(more);
 
   return li;
 }
+
+/**
+ * Get the smaller images filename according to size naming convension
+ * (add '-sm' or '-xs' to the filename)
+ */
+getSmallerImageUrl = (size, imageUrl) => {
+  // get file extension including the dot (ex: .jpg)
+  const extension = imageUrl.substring(imageUrl.lastIndexOf("."));
+  // add '-sm' to filename before extension
+  return imageUrl.replace(extension, '-' + size + extension);
+}
+
 
 /**
  * Add markers for current restaurants to the map.

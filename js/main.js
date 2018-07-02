@@ -72,19 +72,22 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize leaflet map, called from HTML.
  */
 initMap = () => {
-  self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: 'pk.eyJ1IjoidGhhcmFhZSIsImEiOiJjaml2NGo5NGExeThyM3Ztc2g5b2gxeng1In0.fvRa1Cfc8tuWB4BCiXkAUA',
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-  }).addTo(newMap);
+  // Hanlding undefined L error in case of network failure
+  if(typeof L !== 'undefined') {
+    self.newMap = L.map('map', {
+          center: [40.722216, -73.987501],
+          zoom: 12,
+          scrollWheelZoom: false
+        });
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+      mapboxToken: 'pk.eyJ1IjoidGhhcmFhZSIsImEiOiJjaml2NGo5NGExeThyM3Ztc2g5b2gxeng1In0.fvRa1Cfc8tuWB4BCiXkAUA',
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(newMap);
+  }
 
   updateRestaurants();
 }
@@ -204,7 +207,7 @@ createRestaurantHTML = (restaurant) => {
  */
 getSmallerImageUrl = (size, imageUrl) => {
   // get file extension including the dot (ex: .jpg)
-  const extension = imageUrl.substring(imageUrl.lastIndexOf("."));
+  const extension = imageUrl.substring(imageUrl.lastIndexOf('.'));
   // add '-sm' to filename before extension
   return imageUrl.replace(extension, '-' + size + extension);
 }

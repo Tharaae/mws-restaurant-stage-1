@@ -240,6 +240,7 @@ nav h1 a {
   margin: 0;
   max-width: 100%;
   min-width: 100%;
+	background: url(/img/image-not-found.jpg) no-repeat scroll 0 0;
 }
 
 #restaurants-list li h1 {
@@ -329,6 +330,7 @@ nav h1 a {
   width: 100%;
   display: block;
   border-radius: 20px 0 0;
+	background: url(/img/image-not-found.jpg) no-repeat scroll 0 0;
 }
 
 #restaurant-cuisine {

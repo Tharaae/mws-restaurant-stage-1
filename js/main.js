@@ -1,8 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var newMap
-var markers = []
+  cuisines;
+var newMap;
+let markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -25,7 +25,7 @@ fetchNeighborhoods = () => {
       fillNeighborhoodsHTML();
     }
   });
-}
+};
 
 /**
  * Set neighborhoods HTML.
@@ -38,7 +38,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     option.value = neighborhood;
     select.append(option);
   });
-}
+};
 
 /**
  * Fetch all cuisines and set their HTML.
@@ -52,7 +52,7 @@ fetchCuisines = () => {
       fillCuisinesHTML();
     }
   });
-}
+};
 
 /**
  * Set cuisines HTML.
@@ -66,7 +66,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     option.value = cuisine;
     select.append(option);
   });
-}
+};
 
 /**
  * Initialize leaflet map, called from HTML.
@@ -90,7 +90,8 @@ initMap = () => {
   }
 
   updateRestaurants();
-}
+};
+
 /* window.initMap = () => {
   let loc = {
     lat: 40.722216,
@@ -124,8 +125,8 @@ updateRestaurants = () => {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
     }
-  })
-}
+  });
+};
 
 /**
  * Clear current restaurants, their HTML and remove their map markers.
@@ -142,7 +143,7 @@ resetRestaurants = (restaurants) => {
   }
   self.markers = [];
   self.restaurants = restaurants;
-}
+};
 
 /**
  * Create all restaurants HTML and add them to the webpage.
@@ -153,7 +154,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
-}
+};
 
 /**
  * Create restaurant HTML.
@@ -172,7 +173,7 @@ createRestaurantHTML = (restaurant) => {
   image.src = xsImage;
   //set srcset options for different resolution
   //(no larger than 600px expected)
-  image.srcset = xsImage + ' 320w, ' + smImage + ' 600w';
+  image.srcset = `${xsImage} 320w, ${smImage} 600w`;
   image.alt = restaurant.name;
   li.append(image);
 
@@ -195,11 +196,11 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  more.setAttribute('aria-label', 'view ' + restaurant.name + ' restaurant details and reviews');
+  more.setAttribute('aria-label', `view ${restaurant.name} restaurant details and reviews`);
   li.append(more);
 
   return li;
-}
+};
 
 /**
  * Get the smaller images filename according to size naming convension
@@ -210,7 +211,7 @@ getSmallerImageUrl = (size, imageUrl) => {
   const extension = imageUrl.substring(imageUrl.lastIndexOf('.'));
   // add '-sm' to filename before extension
   return imageUrl.replace(extension, '-' + size + extension);
-}
+};
 
 
 /**
@@ -227,7 +228,8 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 
-}
+};
+
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map

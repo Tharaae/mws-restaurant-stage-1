@@ -17,7 +17,7 @@ initMap = () => {
       console.error(error);
     } else {
       // Hanlding undefined L error in case of network failure
-      if(typeof L !== 'undefined') {
+      if (typeof L !== 'undefined') {
         self.newMap = L.map('map', {
           center: [restaurant.latlng.lat, restaurant.latlng.lng],
           zoom: 16,
@@ -36,7 +36,7 @@ initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
     }
   });
-}
+};
 
 /* window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
@@ -59,12 +59,12 @@ initMap = () => {
  */
 fetchRestaurantFromURL = (callback) => {
   if (self.restaurant) { // restaurant already fetched!
-    callback(null, self.restaurant)
+    callback(null, self.restaurant);
     return;
   }
   const id = getParameterByName('id');
   if (!id) { // no id found in URL
-    error = 'No restaurant id in URL'
+    error = 'No restaurant id in URL';
     callback(error, null);
   } else {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
@@ -74,10 +74,10 @@ fetchRestaurantFromURL = (callback) => {
         return;
       }
       fillRestaurantHTML();
-      callback(null, restaurant)
+      callback(null, restaurant);
     });
   }
-}
+};
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -98,7 +98,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   //get 450px wide image url
   const xsImage = getSmallerImageUrl('xs', imageUrl);
   image.src = smImage;
-  image.srcset = xsImage + ' 450w, ' + smImage + ' 600w, ' + imageUrl + ' 800w';
+  image.srcset = `${xsImage} 450w, ${smImage} 600w, ${imageUrl} 800w`;
   image.alt = restaurant.name;
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -110,7 +110,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
-}
+};
 
 /**
  * Get the smaller images filename according to size naming convension
@@ -121,7 +121,7 @@ getSmallerImageUrl = (size, imageUrl) => {
   const extension = imageUrl.substring(imageUrl.lastIndexOf('.'));
   // add '-sm' to filename before extension
   return imageUrl.replace(extension, '-' + size + extension);
-}
+};
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -141,7 +141,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     hours.appendChild(row);
   }
-}
+};
 
 /**
  * Create all reviews HTML and add them to the webpage.
@@ -163,7 +163,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     ul.appendChild(createReviewHTML(review));
   });
   container.appendChild(ul);
-}
+};
 
 /**
  * Create review HTML and add it to the webpage.
@@ -191,21 +191,21 @@ createReviewHTML = (review) => {
   li.appendChild(comments);
 
   return li;
-}
+};
 
 /**
  * Add restaurant name link to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   const link = document.createElement('a');
   link.href = '#restaurant-container';
   link.innerHTML = restaurant.name;
-  link.setAttribute('aria-label', restaurant.name + ' restaurant details');
+  link.setAttribute('aria-label', `${restaurant.name} restaurant details`);
   li.appendChild(link);
   breadcrumb.appendChild(li);
-}
+};
 
 /**
  * Get a parameter by name from page URL.
@@ -221,4 +221,4 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+};

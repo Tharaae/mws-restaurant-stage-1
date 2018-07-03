@@ -174,12 +174,12 @@ createRestaurantHTML = (restaurant) => {
   //set srcset options for different resolution
   //(no larger than 600px expected)
   image.srcset = `${xsImage} 320w, ${smImage} 600w`;
-  image.alt = restaurant.name;
+  image.alt = `An image from the restaurant ${restaurant.name}`;
   li.append(image);
 
   const info = document.createElement('div')
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   info.append(name);
 

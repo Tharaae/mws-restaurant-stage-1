@@ -99,7 +99,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const xsImage = getSmallerImageUrl('xs', imageUrl);
   image.src = smImage;
   image.srcset = `${xsImage} 450w, ${smImage} 600w, ${imageUrl} 800w`;
-  image.alt = restaurant.name;
+  image.alt = `An image from the restaurant ${restaurant.name}`;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -148,9 +148,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
-  const title = document.createElement('h2');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
 
   if (!reviews) {
     const noReviews = document.createElement('p');
@@ -162,7 +159,6 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
-  container.appendChild(ul);
 };
 
 /**
@@ -172,7 +168,7 @@ createReviewHTML = (review) => {
   const li = document.createElement('li');
   const header = document.createElement('div');
 
-  const name = document.createElement('h3');
+  const name = document.createElement('h4');
   name.innerHTML = review.name;
   header.appendChild(name);
 
@@ -182,7 +178,7 @@ createReviewHTML = (review) => {
 
   li.appendChild(header);
 
-  const rating = document.createElement('h4');
+  const rating = document.createElement('h5');
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 

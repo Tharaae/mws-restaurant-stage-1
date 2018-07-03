@@ -242,7 +242,7 @@ nav h1 a {
 	background: url(/img/image-not-found.jpg) no-repeat scroll 0 0;
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h3 {
   color: #a56a00;
   font-family: Arial, sans-serif;
   font-size: 1.1em;
@@ -353,8 +353,9 @@ nav h1 a {
   font-size: 0.95em;
 }
 
-#reviews-container h2 {
+#reviews-container h3 {
   color: #a56a00;
+	font-size: 1.5em;
 }
 
 #reviews-list {
@@ -377,9 +378,11 @@ nav h1 a {
   color: #fff;
 }
 
-#reviews-list li>div>h3 {
+#reviews-list li>div>h4 {
   display: inline-block;
-  padding-top: 1em;
+  padding-top: 0.8em;
+	font-size: 1.4em;
+	font-weight: normal;
 }
 
 #reviews-list li>div>p {
@@ -389,12 +392,12 @@ nav h1 a {
   color: #ddd;
 }
 
-#reviews-list li h3,
+#reviews-list li h4,
 #reviews-list li p {
   padding: 0 1em;
 }
 
-#reviews-list li h4 {
+#reviews-list li h5 {
   background-color: #ffa500;
   display: inline-block;
   margin: 1em;
